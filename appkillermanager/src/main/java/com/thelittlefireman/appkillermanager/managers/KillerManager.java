@@ -76,8 +76,8 @@ public class KillerManager {
     private static Intent getIntentFromAction(Context context, Actions actions) {
         init(context);
         sDevice = DevicesManager.getDevice();
+        Intent intent = SystemUtils.getAppInfoIntent(context.getPackageName());
         if (sDevice != null) {
-            Intent intent = null;
             switch (actions) {
                 case ACTION_AUTOSTART:
                     intent = sDevice.getActionAutoStart(context);
@@ -99,11 +99,11 @@ public class KillerManager {
                         SystemUtils.getDefaultDebugInformation() + "DEVICE \n" +
                         sDevice.getExtraDebugInformations(context));
                 // Intent not found action failed
-                return null;
+                return intent;
             }
         } else {
             // device not found action failed
-            return null;
+            return intent;
                /* LogUtils.e(KillerManager.class.getName(), "DEVICE NOT FOUND" + "SYSTEM UTILS \n" +
                         SystemUtils.getDefaultDebugInformation());*/
         }
